@@ -1,12 +1,16 @@
 import torch
+import clip
+from sentence_transformers import util
 from PIL import Image
-from lavis.models import load_model_and_preprocess
+from utils import load_model
+#from lavis.models import load_model_and_preprocess
 
-device=torch.device("cpu")
+device = torch.device("cpu")
 cap_model, cap_processor = None, None
-clip_model, clip_text_processor, clip_image_processor = None, None, None
-predict_type_model, predict_type_processor = None, None
+clip_model, preprocess = None, None
+predict_type_model, predict_type_preprocessor = None, None
 
+"""
 def infer_generate_caption(img:Image):
     global cap_model, cap_processor, device
     if cap_model == None:
@@ -14,21 +18,46 @@ def infer_generate_caption(img:Image):
     img = cap_processor["eval"](img).unsqueeze(0).to(device)
     caption = cap_model.generate({"image": img})
     return caption
-
+"""
+    
 def infer_compute_similarity(text:str, img:Image):
-    global clip_model, clip_image_processor, clip_text_processor, device
+    global clip_model, preprocess, device
+    # 0.2434956976771353 optimal limit
     if clip_model == None:
-        clip_model, clip_image_processor, clip_text_processor = load_model_and_preprocess(name="blip_feature_extractor", model_type="base", is_eval=True, device=device)
-    image = clip_image_processor["eval"](img).unsqueeze(0).to(device)
-    text_input = clip_text_processor["eval"](text)
-    sample = {"image": image, "text_input": [text_input]}
-    features_image = clip_model.extract_features(sample, mode="image")
-    features_text = clip_model.extract_features(sample, mode="text")
-    similarity = features_image.image_embeds_proj[:, 0, :] @ features_text.text_embeds_proj[:, 0, :].t()
-    return similarity.item()
-
+        clip_model, preprocess = clip.load("ViT-B/32", device=device)
+    
+    sentences = text.split('.')
+    if (len(sentences) > 1):
+        del sentences[-1]
+    
+    sentences = clip.tokenize(sentences, truncate = True)
+    img = preprocess(img).unsqueeze(0)
+    with torch.no_grad():
+        img_embedding = clip_model.encode_image(img)
+        txt_embedding = clip_model.encode_text(sentences)
+    
+    cosine_scores = util.cos_sim(img_embedding, txt_embedding)
+    cosine_scores = cosine_scores.squeeze()
+    
+    if len(sentences) == 1:
+        return cosine_scores.item()
+    list_scores = cosine_scores.tolist()
+    max_score = max(list_scores)
+    response = {'max score':max_score,
+                'adequate': 'yes' if max_score > 0.2434956976771353 else 'no',
+                'limit used':0.2434956976771353}
+    return response
 
 def infer_predict_type(img:Image):
-    global predict_type_model, predict_type_processor, device
+    global predict_type_model, predict_type_preprocessor, device
     if predict_type_model == None:
-        predict_type_model, predict_type_processor = None, None
+        predict_type_model, predict_type_preprocessor = load_model(device)
+    
+    img = predict_type_preprocessor(img).unsqueeze(0)
+    prediction = predict_type_model(img)
+    prediction = torch.softmax(prediction, dim=1)
+    keys = ['just_image', 'bar_chart', 'diagram', 'flow_chart', 'graph', 'growth_chart', 'pie_chart', 'table']
+    values = prediction.tolist()[0]
+    print(values)
+    response = dict(zip(keys,values))
+    return response

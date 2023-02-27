@@ -1,8 +1,10 @@
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
 from io import BytesIO
-from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
+# from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
+from inference import infer_compute_similarity, infer_predict_type
 import uvicorn
+from utils import translate
 
 app = FastAPI(title='Pautas E2R imagenes')
 
@@ -21,7 +23,9 @@ async def compute_similarity(text:str, file: UploadFile = File(...)):
     if not extension:
         return "Image must be jpg or png format!"
     image = Image.open(BytesIO(await file.read())).convert("RGB")
-    similarity = infer_compute_similarity(text, image)
+    en_text = translate(text, 'es', 'en')
+    
+    similarity = infer_compute_similarity(en_text, image)
     print(similarity)
     return similarity
 
@@ -31,7 +35,8 @@ async def predict_type(file: UploadFile = File(...)):
     if not extension:
         return "Image must be jpg or png format!"
     image = Image.open(BytesIO(await file.read())).convert("RGB")
-    return 'hi'
+    predictions = infer_predict_type(image)
+    return predictions
 
 if __name__ == "__main__":
     uvicorn.run(app, port='8888', host='0.0.0.0')
