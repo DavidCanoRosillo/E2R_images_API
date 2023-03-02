@@ -1,8 +1,7 @@
 from fastapi import FastAPI, File, UploadFile
 from PIL import Image
 from io import BytesIO
-# from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
-from inference import infer_compute_similarity, infer_predict_type
+from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
 import uvicorn
 from utils import translate
 
