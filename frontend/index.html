@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+   <title>Pautas E2R con imagenes</title>
+   <script src="./js/test.js"></script>
+</head>
+<body>
+   <h1 id="title">Implementación pautas E2R con imagenes</h1>
+   Introduzca la imagen a analizar aqui:<br>
+   <input type="file" accept="image/jpeg, image/png, image/jpg" onchange="loadImage(event)">
+   <img id="output" width="224" height="224">
+   <h2>Descripción automática</h2>
+   <button type="button" onclick="generateCaption()">Generar descripción</button>
+   <p id="caption_result"></p>
+   <h2>Predicción del tipo de imagen</h2>
+   <p>Un modelo calculara la probabilidad de que la imagen pertenezca a cada una de estas 8 clases.</p>
+   <lu>
+      <li id="c_0">0</li>
+      <li id="c_1">0</li>
+      <li id="c_2">0</li>
+      <li id="c_3">0</li>
+      <li id="c_4">0</li>
+      <li id="c_5">0</li>
+      <li id="c_6">0</li>
+      <li id="c_7">0</li>
+   </lu>
+   <button type="button" onclick="classifyImage()">Calcular probabilidades</button>
+
+   <h2>Calculo similaridad semántica con texto</h2>
+   <p>El modelo devolvera la probabilidad de que la imagen y el texto esten relacionados. El modelo fue entrenado con descripciones explícitas asi que devuelve probabilidades bajas en muchos textos. Un resultado mayor a 0.07% predice que un texto esta relacionado con una imagen con una tasa de acierto del 87%.</p>
+   <form id="form">
+      <label for="text">Introduzca el texto a comparar:</label><br>
+      <input type="text" id="text">
+   </form><br>
+   <button type="button" onclick="calculateSimilarity()">Calcular similaridad</button>
+   <p id="similarity_result"></p>
+</body>
+
+</html>
