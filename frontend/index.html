@@ -3,12 +3,15 @@
 <head>
    <title>Pautas E2R con imagenes</title>
    <script src="./js/test.js"></script>
+   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
    <h1 id="title">Implementación pautas E2R con imagenes</h1>
-   Introduzca la imagen a analizar aqui:<br>
+   <p>Introduzca la imagen a analizar aqui:<br></p>
    <input type="file" accept="image/jpeg, image/png, image/jpg" onchange="loadImage(event)">
-   <img id="output" width="224" height="224">
+   <div>
+      <img id="output">
+   </div>
    <h2>Descripción automática</h2>
    <button type="button" onclick="generateCaption()">Generar descripción</button>
    <p id="caption_result"></p>
