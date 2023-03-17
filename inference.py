@@ -40,9 +40,9 @@ def infer_compute_similarity(txt:str, img:Image):
     score = itm_scores[:, 1].item()
     print(itm_scores)
 
-    response = {'max score': score,
-                'adequate': 'yes' if score > 0.08 else 'no',
-                'limit used':0.08}
+    response = {'max_score': score,
+                'adequate': 'si' if score > 0.08 else 'no',
+                'limit_used':0.08}
     return response
 
 def infer_predict_type(img:Image):

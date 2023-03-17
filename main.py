@@ -1,4 +1,5 @@
 from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import HTMLResponse
 from PIL import Image
 from io import BytesIO
 from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
@@ -6,6 +7,20 @@ import uvicorn
 from utils import translate
 
 app = FastAPI(title='Pautas E2R imagenes')
+
+@app.get("/", response_class=HTMLResponse)
+async def read_items():
+    f = open("./frontend/index.html")
+    html_content = f.read()
+    print(html_content)
+    return HTMLResponse(content=html_content, status_code=200)
+
+@app.get("/js/test.js", response_class=HTMLResponse)
+async def read_js():
+    f = open("./frontend/js/test.js")
+    html_content = f.read()
+    return HTMLResponse(content=html_content, status_code=200)
+
 
 @app.post('/generate_caption')
 async def generate_caption(file: UploadFile = File(...)):
@@ -38,4 +53,4 @@ async def predict_type(file: UploadFile = File(...)):
     return predictions
 
 if __name__ == "__main__":
-    uvicorn.run(app, port='8888', host='0.0.0.0')
+    uvicorn.run(app, port='1234', host='0.0.0.0')
