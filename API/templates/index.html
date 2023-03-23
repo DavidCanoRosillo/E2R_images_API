@@ -2,8 +2,8 @@
 <html>
 <head>
    <title>Pautas E2R con imagenes</title>
-   <script src="./js/test.js"></script>
-   <link rel="stylesheet" href="./css/style.css">
+   <script src="{{ url_for('static', path='/js/main.js') }}"></script>
+   <link rel="stylesheet" href="{{ url_for('static', path='/css/styles.css') }}">
 </head>
 <body>
    <h1 id="title">Implementación pautas E2R con imagenes</h1>
@@ -18,7 +18,6 @@
    <h2>Predicción del tipo de imagen</h2>
    <p>Un modelo calculara la probabilidad de que la imagen pertenezca a cada una de estas 8 clases.</p>
     <lu id="clases">
-      <li>Sin gráfico: %</li>
       <li>Sin gráfico: %</li>
       <li>Gráfico de barras: %</li>
       <li>Diagrama: %</li>
