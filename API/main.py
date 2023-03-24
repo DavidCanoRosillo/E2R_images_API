@@ -27,7 +27,8 @@ async def generate_caption(file: UploadFile = File(...)):
         return "Image must be jpg or png format!"
     image = Image.open(BytesIO(await file.read())).convert("RGB")
     caption = infer_generate_caption(image)
-    return caption
+    es_caption = translate(caption, 'en', 'es')
+    return es_caption.capitalize()
 
 @app.post('/compute_similarity')
 async def compute_similarity(text:str, file: UploadFile = File(...)):
