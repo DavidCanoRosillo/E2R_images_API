@@ -26,7 +26,7 @@ async def generate_caption(file: UploadFile = File(...)):
     if not extension:
         return "Image must be jpg or png format!"
     image = Image.open(BytesIO(await file.read())).convert("RGB")
-    caption = infer_generate_caption(image)
+    caption = infer_generate_caption(image)[0]
     es_caption = translate(caption, 'en', 'es')
     return es_caption.capitalize()
 
