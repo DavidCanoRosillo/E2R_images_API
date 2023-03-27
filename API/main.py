@@ -19,7 +19,7 @@ templates = Jinja2Templates(directory="templates")
 async def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
-
+"""
 @app.post('/generate_caption')
 async def generate_caption(file: UploadFile = File(...)):
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
@@ -29,7 +29,7 @@ async def generate_caption(file: UploadFile = File(...)):
     caption = infer_generate_caption(image)[0]
     es_caption = translate(caption, 'en', 'es')
     return es_caption.capitalize()
-
+ 
 @app.post('/compute_similarity')
 async def compute_similarity(text:str, file: UploadFile = File(...)):
     extension = file.filename.split(".")[-1] in ("jpg", "jpeg", "png")
@@ -50,6 +50,7 @@ async def predict_type(file: UploadFile = File(...)):
     image = Image.open(BytesIO(await file.read())).convert("RGB")
     predictions = infer_predict_type(image)
     return predictions
+"""
 
 if __name__ == "__main__":
-    uvicorn.run(app, port='80', host='0.0.0.0')
+    uvicorn.run(app, port='1234', host='0.0.0.0')

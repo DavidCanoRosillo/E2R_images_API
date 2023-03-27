@@ -9,14 +9,18 @@ async function generateCaption() {
   const formData = new FormData();
   formData.append('file', imageFile);
 
+  var element = document.getElementById("caption_result");
+  
+  element.innerHTML = "Espere mientras se genera su descripción...";
+  /*
   const response = await fetch('/generate_caption', {
     method: 'POST',
     body: formData
   });
 
   const result = await response.json();
-  var element = document.getElementById("caption_result");
-  element.innerHTML = result;
+  */
+  //element.innerHTML = result;
 }
 
 
