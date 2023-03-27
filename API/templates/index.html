@@ -29,14 +29,14 @@
    </lu>
    <button type="button" onclick="classifyImage()">Calcular probabilidades</button>
 
-   <h2>Calculo similaridad semántica con texto</h2>
-   <p>El modelo devolvera la probabilidad de que la imagen y el texto esten relacionados. El modelo fue entrenado con descripciones explícitas asi que devuelve probabilidades bajas en muchos textos. Un resultado mayor a 0.08% predice que un texto esta relacionado con una imagen con una tasa de acierto del 87%.</p>
+   <h2>Calculo similitud semántica con texto</h2>
+   <p>El modelo devolvera la probabilidad de que la imagen y el texto esten relacionados. El modelo fue entrenado con descripciones explícitas asi que devuelve probabilidades bajas en muchos textos. Un resultado mayor a 8% predice que un texto esta relacionado con una imagen con una tasa de acierto del 87%.</p>
    <form id="form">
       <label for="text">Introduzca el texto a comparar:</label><br>
       <input type="text" id="text">
    </form><br>
-   <button type="button" onclick="calculateSimilarity()">Calcular similaridad</button>
    <p id="similarity_result"></p>
+   <button type="button" onclick="calculateSimilarity()">Calcular similaridad</button>
 </body>
 
 </html>

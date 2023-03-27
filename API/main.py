@@ -4,7 +4,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from PIL import Image
 from io import BytesIO
-from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
+#from inference import infer_generate_caption, infer_compute_similarity, infer_predict_type
 import uvicorn
 from utils import translate
 
@@ -51,6 +51,5 @@ async def predict_type(file: UploadFile = File(...)):
     predictions = infer_predict_type(image)
     return predictions
 """
-
 if __name__ == "__main__":
-    uvicorn.run(app, port='1234', host='0.0.0.0')
+    uvicorn.run(app, port='80', host='0.0.0.0')

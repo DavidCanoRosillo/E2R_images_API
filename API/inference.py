@@ -38,11 +38,11 @@ def infer_compute_similarity(txt:str, img:Image):
     itm_output = model({"image": img, "text_input": txt}, match_head="itm")
     itm_scores = torch.nn.functional.softmax(itm_output, dim=1)
     score = itm_scores[:, 1].item()
-    print(itm_scores)
 
-    response = {'max_score': score,
-                'adequate': 'si' if score > 0.08 else 'no',
-                'limit_used':0.08}
+    threshold = 8
+    response = {'max_score': score * 100,
+                'adequate': 'si' if score > threshold else 'no',
+                'limit_used':threshold}
     return response
 
 def infer_predict_type(img:Image):
@@ -54,9 +54,8 @@ def infer_predict_type(img:Image):
     
     img = predict_type_preprocessor(img).unsqueeze(0)
     prediction = predict_type_model(img)
-    prediction = torch.softmax(prediction, dim=1)
+    prediction = torch.softmax(prediction, dim=1) * 100
     keys = ['just_image', 'bar_chart', 'diagram', 'flow_chart', 'graph', 'growth_chart', 'pie_chart', 'table']
     values = prediction.tolist()[0]
-    print(values)
     response = dict(zip(keys,values))
     return response
