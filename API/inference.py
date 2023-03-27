@@ -37,10 +37,10 @@ def infer_compute_similarity(txt:str, img:Image):
     txt = text_processors["eval"](txt)
     itm_output = model({"image": img, "text_input": txt}, match_head="itm")
     itm_scores = torch.nn.functional.softmax(itm_output, dim=1)
-    score = itm_scores[:, 1].item()
+    score = itm_scores[:, 1].item() * 100
 
     threshold = 8
-    response = {'max_score': score * 100,
+    response = {'max_score': score,
                 'adequate': 'si' if score > threshold else 'no',
                 'limit_used':threshold}
     return response
