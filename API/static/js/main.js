@@ -88,7 +88,6 @@ async function calculateSimilarity() {
 
 async function reset_outputs(){
   // reset caption
-  alert("resetting");
   var element = document.getElementById("caption_result");
   element.innerHTML = "";
 
@@ -111,7 +110,6 @@ async function reset_outputs(){
 }
 
 function loadImage(event){
-  alert("hey");
   const file = event.target.files[0];
   const reader = new FileReader();
   image = document.getElementById("output");
