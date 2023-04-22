@@ -2,7 +2,7 @@
 
 Trabajo realizado bajo una beca de colaboración con el departamento de IA de la UPM. En este repositorio esta disponible tanto el [informe final](./documentacion/InformeFinal.pdf) como la [presentación](./documentacion/OEG_presentaci%C3%B3n_beca.pptx) dada en el departamento. La web y API estan disponibles en este [dominio](https://imagenese2r.linkeddata.es/) del OEG.
 
-[Imagen de la web desarrollada](https://github.com/DavidCanoRosillo/E2R_images_API/blob/master/documentacion/web.png)
+![Imagen de la web desarrollada](https://github.com/DavidCanoRosillo/E2R_images_API/blob/master/documentacion/web.png)
 
 ## Descripción del trabajo
 Consiste en la automatización de 3 pautas de la metodología Easy2Read. Esta metodologia propone una serie de pautas para facilitar la lectura de documentos a peronas con discapacidades intelectuales. Las 3 pautas automatizadas usando el estado del arte en deep learning son:
