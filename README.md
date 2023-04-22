@@ -22,3 +22,13 @@ La API y web desarrollada tiene las siguientes funcionalidades para cada pauta:
 Para la segunda pauta se hizo finetuning de un clasificador de imagenes. Se puede consultar en entrenamiento y dataset en el siguiente cuaderno de [kaggle](https://www.kaggle.com/code/davidcanorosillo/graph-classification).
 
 Para la tercera pauta se hicieron extensas pruebas descritas en el informe final. El dataset usado consiste en noticias y sus imagenes. Es el subconjunto de noticias en español con imagenes descargables del dataset Latest News de esta [página](https://newsdata.io/datasets). El dataset limpiado esta disponible en mi [Google Drive](https://drive.google.com/file/d/1iLEPBoCtwXSeI4VKFp7mcD4Xx97NIDBu/view?usp=sharing). 
+
+## Despliegue usando Docker
+Este repositorio contiene un archivo Dockerfile para hacer más cómodo el despliegue. Ejecutando estos comandos se puede ejecutar la API.
+
+```
+    docker build -t E2R_API .
+
+    docker run -p <puerto-host>:80 E2R_API
+```
+Reemplazando \<puerto-host> con el puerto en el cual se desea exponer la API.
